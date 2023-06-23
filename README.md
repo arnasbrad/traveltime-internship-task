@@ -13,6 +13,7 @@ This project used 2 external libraries:
 ### Libraries installation
 To install the packages it is recomended to use the NuGet package manager
 
+How to do it using the `.NET CLI`:
 ```bash
 dotnet add package NetTopologySuite --version 2.5.0
 dotnet add package Newtonsoft.Json --version 13.0.3
