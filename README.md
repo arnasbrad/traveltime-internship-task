@@ -10,15 +10,6 @@ This project used 2 external libraries:
 1. `NetTopologySuite` - used for checking whether polygon covers given point.
 2. `Newtonsoft.Json` - used for parsing input data from .json files.
 
-### Libraries installation
-To install the packages it is recomended to use the NuGet package manager
-
-How to do it using the `.NET CLI`:
-```bash
-dotnet add package NetTopologySuite --version 2.5.0
-dotnet add package Newtonsoft.Json --version 13.0.3
-```
-
 # Usage
 To run the application, use the `dotnet run` command with the `--project` option followed by the project name `traveltimeTask`, and provide the filenames as arguments.
 
