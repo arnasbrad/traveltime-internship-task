@@ -6,7 +6,7 @@ This is a solution for the test assignment for Scala TravelTime internship by Ar
 Instructions for the installation of `.NET SDK 6.0` for Windows / Linux / MacOS can be found here:
 https://learn.microsoft.com/en-us/dotnet/core/install/
 
-This project used 2 external libraries:
+This project uses 2 external libraries:
 1. `NetTopologySuite` - used for checking whether polygon covers given point.
 2. `Newtonsoft.Json` - used for parsing input data from .json files.
 
