@@ -1,47 +1,21 @@
 ﻿using NetTopologySuite.Geometries;
 using Newtonsoft.Json;
 
-public class Location
-{
-    public string Name { get; set; }
-    public List<double> Coordinates { get; set; }
-
-    public Location(string name, List<double> coordinates)
-    {
-        Name = name;
-        Coordinates = coordinates;
-    }
-}
-
-public class Region
-{
-    public string Name { get; set; }
-    public List<List<List<double>>> Coordinates { get; set; }
-
-    public Region(string name, List<List<List<double>>> coordinates)
-    {
-        Name = name;
-        Coordinates = coordinates;
-    }
-}
-
-public class Result
-{
-    public string Region { get; set; }
-    public List<string> MatchedLocations { get; set; } = new List<string>();
-
-    public Result(string region)
-    {
-        Region = region;
-    }
-}
-
 class Program
 {
     public static void Main(string[] args)
     {
-        var regions = JsonConvert.DeserializeObject<List<Region>>(File.ReadAllText("regions.json"));
-        var locations = JsonConvert.DeserializeObject<List<Location>>(File.ReadAllText("locations.json"));
+        string regionsFile = args[0];
+        string locationsFile = args[1];
+        string resultsFile = args[2];
+
+        bool isRegionsFileValid = TaskUtils.IsJsonFileValid(regionsFile);
+        bool isLocationsFileValid = TaskUtils.IsJsonFileValid(locationsFile);
+
+        if(!isLocationsFileValid || !isRegionsFileValid) return;
+
+        var regions = TaskUtils.DeserializeJson<Region>(File.ReadAllText(regionsFile));
+        var locations = TaskUtils.DeserializeJson<Location>(File.ReadAllText(locationsFile));
 
         var results = new List<Result>();
         var geometryFactory = new GeometryFactory();
@@ -76,7 +50,7 @@ class Program
             results.Add(result);
         }
 
-        File.WriteAllText("results.json", JsonConvert.SerializeObject(results, Formatting.Indented));
+        File.WriteAllText(resultsFile, JsonConvert.SerializeObject(results, Formatting.Indented));
     }
 }
 
