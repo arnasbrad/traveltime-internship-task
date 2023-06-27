@@ -9,6 +9,3 @@ public class Region
         Coordinates = coordinates;
     }
 }
-
-
-

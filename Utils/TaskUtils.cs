@@ -1,3 +1,4 @@
+using NetTopologySuite.Geometries;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -76,5 +77,43 @@ static class TaskUtils
         {
             return false;
         }
+    }
+
+    public static List<Result>? FindLocationsInRegions(List<Region> regions, List<Location> locations)
+    {
+        var results = new List<Result>();
+        var geometryFactory = new GeometryFactory();
+
+        foreach (var region in regions)
+        {
+            var polygons = new List<Polygon>();
+            foreach (var polygonCoords in region.Coordinates)
+            {
+                var coordinates = new List<Coordinate>();
+                foreach (var coord in polygonCoords)
+                {
+                    coordinates.Add(new Coordinate(coord[0], coord[1]));
+                }
+
+                polygons.Add(geometryFactory.CreatePolygon(coordinates.ToArray()));
+            }
+
+            var multiPolygon = geometryFactory.CreateMultiPolygon(polygons.ToArray());
+
+            var result = new Result(region.Name);
+
+            foreach (var location in locations)
+            {
+                var point = geometryFactory.CreatePoint(new Coordinate(location.Coordinates[0], location.Coordinates[1]));
+                if (multiPolygon.Covers(point))
+                {
+                    result.MatchedLocations.Add(location);
+                }
+            }
+
+            results.Add(result);
+        }
+
+        return results;
     }
 }
