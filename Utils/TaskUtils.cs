@@ -92,7 +92,7 @@ static class TaskUtils
                 var coordinates = new List<Coordinate>();
                 foreach (var coord in polygonCoords)
                 {
-                    coordinates.Add(new Coordinate(coord[0], coord[1]));
+                    coordinates.Add(new Coordinate(coord.X, coord.Y));
                 }
 
                 polygons.Add(geometryFactory.CreatePolygon(coordinates.ToArray()));
