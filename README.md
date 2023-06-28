@@ -13,7 +13,7 @@ This project uses 2 external libraries:
 The packages will be installed automatically when trying to run the project using the `.NET CLI` (or any other tool that understands NuGet packages, such as Visual Studio or JetBrains Rider)
 
 # Usage
-To run the application, use the `dotnet run` command with the `--project` option followed by the project name `traveltimeTask`, and provide the filenames as arguments.
+To run the application, use the `dotnet run` command with the `--project` option followed by the project name `traveltime-internship-task`, and provide the filenames as arguments.
 
 ```bash
 dotnet run --project <projectName> <regionsFile> <locationsFile> <outputFile>
@@ -22,7 +22,7 @@ dotnet run --project <projectName> <regionsFile> <locationsFile> <outputFile>
 #### Example
 
 ```bash
-dotnet run --project traveltimeTask regions.json locations.json results.json
+dotnet run --project traveltime-internship-task regions.json locations.json results.json
 ```
 
 If you are within the root project directory, the `--project` option is unnecessary and the code can be executed like this: 
