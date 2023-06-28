@@ -26,7 +26,7 @@ To run the application, use the `dotnet run` command and provide the filenames a
 dotnet run <path_to_regions.json> <path_to_locations.json> <path_to_results.json>
 ```
 
-## Input file exmaples
+## Input file examples
 [Locations](https://github.com/traveltime-dev/internship-task/blob/master/input/locations.json)
 
 [Regions](https://github.com/traveltime-dev/internship-task/blob/master/input/regions.json)
