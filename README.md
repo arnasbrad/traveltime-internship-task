@@ -1,31 +1,35 @@
 # traveltime-internship-task
 
-This is a solution for the test assignment for Scala TravelTime internship by Arnas Bradauskas.
+## Project Description
 
-# Dependancies
-Instructions for the installation of `.NET SDK 6.0` for Windows / Linux / MacOS can be found here:
-https://learn.microsoft.com/en-us/dotnet/core/install/
+This is a solution for the test assignment for Scala TravelTime internship by Arnas Bradauskas. Given an input of two files (regions.json and locations.json) the program matches all locations to the regions they are located in.
 
-This project uses 2 external libraries:
-1. `NetTopologySuite` - used for checking whether polygon covers given point.
-2. `Newtonsoft.Json` - used for parsing input data from .json files.
+## Prerequisites
+* You have installed [.NET](https://dotnet.microsoft.com/download) version 6.0.
+* You have a Windows/Mac/Linux machine. This project was tested on Ubuntu 22.04.
 
-The packages will be installed automatically when trying to run the project using the `.NET CLI` (or any other tool that understands NuGet packages, such as Visual Studio or JetBrains Rider)
+## Installing Your Project Title
 
-# Usage
-To run the application, use the `dotnet run` command with the `--project` option followed by the project name `traveltime-internship-task`, and provide the filenames as arguments.
+To install Your Project Title, follow these steps:
 
-```bash
-dotnet run --project <projectName> <regionsFile> <locationsFile> <outputFile>
-```
-
-#### Example
+Windows/Mac/Linux:
 
 ```bash
-dotnet run --project traveltime-internship-task regions.json locations.json results.json
+git clone https://github.com/arnasbrad/traveltime-internship-task.git
+cd traveltime-internship-task
 ```
 
-If you are within the root project directory, the `--project` option is unnecessary and the code can be executed like this: 
+## Usage
+To run the application, use the `dotnet run` command and provide the filenames as arguments.
+
 ```bash
-dotnet run input/regions.json input/locations.json output/results.json
+dotnet run <path_to_regions.json> <path_to_locations.json> <path_to_results.json>
 ```
+
+## Input file exmaples
+[Locations](https://github.com/traveltime-dev/internship-task/blob/master/input/locations.json)
+
+[Regions](https://github.com/traveltime-dev/internship-task/blob/master/input/regions.json)
+
+## Output example
+[Results](https://github.com/traveltime-dev/internship-task/blob/master/output/results.json)
