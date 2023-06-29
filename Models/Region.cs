@@ -1,14 +1,11 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
 public class Region
 {
     public string Name { get; }
-    public List<List<MyCoordinate>> Coordinates { get; }
+    public List<MyPolygon> Polygons { get; }
 
-    public Region(string name, List<List<MyCoordinate>> coordinates)
+    public Region(string name, List<MyPolygon> coordinates)
     {
         Name = name;
-        Coordinates = coordinates;
+        Polygons = coordinates;
     }
 }

@@ -95,7 +95,7 @@ static class TaskUtils
         foreach (var region in regions)
         {
             var polygons = new List<Polygon>();
-            foreach (var polygonCoords in region.Coordinates)
+            foreach (var polygonCoords in region.Polygons)
             {
                 var coordinates = new List<Coordinate>();
                 foreach (var coord in polygonCoords)
