@@ -9,9 +9,9 @@ public class Result
     public List<Location> MatchedLocations { get; } = new List<Location>();
 
     [JsonProperty("matched_locations")]
-    public List<string> MatchedLocationNames 
-    { 
-        get { return MatchedLocations.Select(loc => loc.Name).ToList(); } 
+    public List<string> MatchedLocationNames
+    {
+        get { return MatchedLocations.Select(loc => loc.Name).ToList(); }
     }
 
     public Result(string region)
