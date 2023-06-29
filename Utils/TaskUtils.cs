@@ -46,8 +46,8 @@ static class TaskUtils
             // If the JSON structure does not match the class structure,
             // Json.NET will throw a JsonSerializationException
             Console.WriteLine(
-                $"JSON structure does not match the {typeof(T).Name} class structure: " + ex.Message
-            );
+                    $"JSON structure does not match the {typeof(T).Name} class structure: " + ex.Message
+                    );
             return null;
         }
     }
@@ -56,10 +56,10 @@ static class TaskUtils
     {
         strInput = strInput.Trim();
         if (
-            (strInput.StartsWith("{") && strInput.EndsWith("}"))
-            || //For object
-            (strInput.StartsWith("[") && strInput.EndsWith("]"))
-        ) //For array
+                (strInput.StartsWith("{") && strInput.EndsWith("}"))
+                || //For object
+                (strInput.StartsWith("[") && strInput.EndsWith("]"))
+           ) //For array
         {
             try
             {
@@ -84,46 +84,43 @@ static class TaskUtils
         }
     }
 
-    public static List<Result>? FindLocationsInRegions(
-        List<Region> regions,
-        List<Location> locations
-    )
+    public static List<Result>? FindLocationsInRegions(List<Region> regions, List<Location> locations)
     {
         var results = new List<Result>();
         var geometryFactory = new GeometryFactory();
 
         foreach (var region in regions)
         {
-            var polygons = new List<Polygon>();
-            foreach (var polygonCoords in region.Polygons)
-            {
-                var coordinates = new List<Coordinate>();
-                foreach (var coord in polygonCoords)
-                {
-                    coordinates.Add(new Coordinate(coord.X, coord.Y));
-                }
-
-                polygons.Add(geometryFactory.CreatePolygon(coordinates.ToArray()));
-            }
-
-            var multiPolygon = geometryFactory.CreateMultiPolygon(polygons.ToArray());
-
-            var result = new Result(region.Name);
-
-            foreach (var location in locations)
-            {
-                var point = geometryFactory.CreatePoint(
-                    new Coordinate(location.Coordinates[0], location.Coordinates[1])
-                );
-                if (multiPolygon.Covers(point))
-                {
-                    result.MatchedLocations.Add(location);
-                }
-            }
-
-            results.Add(result);
+            var multiPolygon = CreateMultiPolygonFromRegion(geometryFactory, region);
+            results.Add(GetResultForRegion(geometryFactory, region.Name, multiPolygon, locations));
         }
 
         return results;
+    }
+
+    private static MultiPolygon CreateMultiPolygonFromRegion(GeometryFactory geometryFactory, Region region)
+    {
+        var polygons = region.Polygons.Select(polygon => CreatePolygonFromCoords(geometryFactory, polygon)).ToArray();
+        return geometryFactory.CreateMultiPolygon(polygons);
+    }
+
+    private static Polygon CreatePolygonFromCoords(GeometryFactory geometryFactory, MyPolygon polygonCoords)
+    {
+        var coordinates = polygonCoords.Select(coord => new Coordinate(coord.X, coord.Y)).ToArray();
+        return geometryFactory.CreatePolygon(coordinates);
+    }
+
+    private static Result GetResultForRegion(GeometryFactory geometryFactory, string regionName, MultiPolygon multiPolygon, List<Location> locations)
+    {
+        var result = new Result(regionName);
+        var matchedLocations = locations.Where(location => IsLocationCoveredByMultiPolygon(geometryFactory, location, multiPolygon)).ToList();
+        result.MatchedLocations.AddRange(matchedLocations);
+        return result;
+    }
+
+    private static bool IsLocationCoveredByMultiPolygon(GeometryFactory geometryFactory, Location location, MultiPolygon multiPolygon)
+    {
+        var point = geometryFactory.CreatePoint(new Coordinate(location.Coordinates[0], location.Coordinates[1]));
+        return multiPolygon.Covers(point);
     }
 }
