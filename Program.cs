@@ -6,32 +6,22 @@ class Program
     {
         if (args.Length != 3)
         {
-            System.Console.WriteLine(
-                "Usage dotnet run <path_to_regions.json> <path_to_locations.json> <path_to_results.json>"
+            Console.WriteLine(
+                "Usage: dotnet run <path_to_regions.json> <path_to_locations.json> <path_to_results.json>"
             );
-            return;
+            Environment.Exit(1);
         }
-        string regionsFile = args[0];
-        string locationsFile = args[1];
-        string resultsFile = args[2];
 
-        bool isRegionsFileValid = TaskUtils.IsJsonFileValid(regionsFile);
-        bool isLocationsFileValid = TaskUtils.IsJsonFileValid(locationsFile);
-
-        if (!isLocationsFileValid || !isRegionsFileValid)
-            return;
-
-        var regions = TaskUtils.DeserializeJson<Region>(File.ReadAllText(regionsFile));
-        var locations = TaskUtils.DeserializeJson<Location>(File.ReadAllText(locationsFile));
+        var regions = TaskUtils.LoadData<Region>(args[0]);
+        var locations = TaskUtils.LoadData<Location>(args[1]);
 
         if (regions == null || locations == null)
         {
-            System.Console.WriteLine("There was an exception with the input files");
-            return;
+            Console.WriteLine("There was an exception with the input files");
+            Environment.Exit(1);
         }
 
         var results = TaskUtils.FindLocationsInRegions(regions, locations);
-
-        File.WriteAllText(resultsFile, JsonConvert.SerializeObject(results, Formatting.Indented));
+        File.WriteAllText(args[2], JsonConvert.SerializeObject(results, Formatting.Indented));
     }
 }
