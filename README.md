@@ -8,9 +8,9 @@ This is a solution for the test assignment for Scala TravelTime internship by Ar
 * You have installed [.NET](https://dotnet.microsoft.com/download) version 6.0.
 * You have a Windows/Mac/Linux machine. This project was tested on Ubuntu 22.04.
 
-## Installing Your Project Title
+## Installation
 
-To install Your Project Title, follow these steps:
+To install traveltime-internship-task, follow these steps:
 
 Windows/Mac/Linux:
 
