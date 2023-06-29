@@ -4,6 +4,11 @@ class Program
 {
     public static void Main(string[] args)
     {
+        if(args.Length != 3)
+        {
+            System.Console.WriteLine("Usage dotnet run <path_to_regions.json> <path_to_locations.json> <path_to_results.json>");
+            return;
+        }
         string regionsFile = args[0];
         string locationsFile = args[1];
         string resultsFile = args[2];
